@@ -18,7 +18,7 @@ const toDoReducer = (state = initialState,action) =>{
             const list = state.list
             //console.log(action.description.description,"DESCRIPTION")
             list.push({id:list.length+1,description:action.description.description})
-            console.log(state.edit)
+            //console.log(state.edit)
             return{
             ...state,
             noOfList:list.length+1
