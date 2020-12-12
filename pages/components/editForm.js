@@ -1,12 +1,20 @@
 import React,{useState,Fragment} from 'react'
 import {connect,useDispatch} from 'react-redux'
 import listActions from '../../redux/list/list.action'
+// import {GetStaticProps} from 'next'
 
+
+// export const GetStaticProps = async (context) =>{
+//   return {
+//     props
+//   }
+// }
 
 const  EditForm = (props) => {
+  
   const [Updatedvalues,setUpdatedvalues] = useState({
-    updatedId:props.shouldBeEdited.id,
-    updatedDescription:props.shouldBeEdited.description,
+    updatedId:props.props.shouldBeEdited.id,
+    updatedDescription:props.props.shouldBeEdited.description,
   })
   const dispatch = useDispatch()
   const { updatedId,updatedDescription } = Updatedvalues
@@ -39,13 +47,6 @@ const  EditForm = (props) => {
         // </div> 
     )
 }
-const mapStateToProps = state =>{
-  return {
-    noOfList:state.noOfList,
-    list:state.list,
-    shouldBeEdited:state.shouldBeEdited
-  }
-}
 
 const mapDispatchToProps = dispatch =>{
   return {
@@ -53,7 +54,17 @@ const mapDispatchToProps = dispatch =>{
   }
 }
 
+export const GetStaticProps = state =>{
+  return {
+    props:{
+      noOfList:state.noOfList,
+      list:state.list,
+      shouldBeEdited:state.shouldBeEdited
+    }
+    
+  }
+}
 export default connect(
-  mapStateToProps,
+  GetStaticProps,
   mapDispatchToProps
 )(EditForm)

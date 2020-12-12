@@ -5,6 +5,8 @@ import {Provider} from 'react-redux'
 import store from '../redux/list/list.store'
 
 
+
+
 const Index = () => (
   <Provider store={store}>
   <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

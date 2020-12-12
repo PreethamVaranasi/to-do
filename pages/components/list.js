@@ -2,9 +2,19 @@ import React from 'react'
 import listActions from '../../redux/list/list.action'
 import {connect,useDispatch} from 'react-redux'
 
+// export const GetStaticProps = async (context) =>{
+//   return {
+//     props
+//   }
+// }
+
+
+
+
 const List = (props)=> {
+  console.log(props,"PROPS")
   const dispatch = useDispatch()
-  console.log(props.list,"FROM LISTJS")
+  console.log(props.props.list,"FROM LISTJS")
   const editTask = (id)=>{
     console.log(id,"ID FROM EDIT TASK FUNCTION")
   }
@@ -21,7 +31,7 @@ const List = (props)=> {
             </tr>
           </thead>
           <tbody>
-            {props.list.sort((a, b) => a.id > b.id ? 1 : -1)
+            {props.props.list.sort((a, b) => a.id > b.id ? 1 : -1)
             .map((post) => (
               <tr key={post.id}>
               <th scope="row">{post.id}</th>
@@ -39,15 +49,16 @@ const List = (props)=> {
     )
 }
 
-const mapStateToProps = state =>{
+export const GetStaticProps = state =>{
   return {
-    noOfList:state.noOfList,
-    shouldBeEdited:state.shouldBeEdited,
-    edit:state.edit,
-    list:state.list
+    props:{
+      noOfList:state.noOfList,
+      list:state.list,
+      shouldBeEdited:state.shouldBeEdited
+    }
+    
   }
 }
-
 const mapDispatchToProps = dispatch =>{
   return {
     addList : ()=>dispatch(addList())
@@ -55,6 +66,6 @@ const mapDispatchToProps = dispatch =>{
 }
 
 export default connect(
-  mapStateToProps,
+  GetStaticProps,
   mapDispatchToProps
 )(List)

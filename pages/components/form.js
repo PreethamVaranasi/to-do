@@ -3,6 +3,15 @@ import {connect,useDispatch} from 'react-redux'
 import listActions from '../../redux/list/list.action'
 import EditForm from './editForm'
 
+
+// export const GetStaticProps = async (context) =>{
+//   return {
+//     props
+//   }
+// }
+
+
+
 const Form = (props)=> {
   const [values,setvalues] = useState({
     description:"",
@@ -17,7 +26,7 @@ const Form = (props)=> {
     return (
         <div>
           <div className="form-group">
-            {<p>{(Object.keys(props.shouldBeEdited).length) === 0 ? 
+            {<p>{(Object.keys(props.props.shouldBeEdited).length) === 0 ? 
               <Fragment>
               <label htmlFor="todotxt">Add Your List</label>
               <input 
@@ -43,11 +52,14 @@ const Form = (props)=> {
     )
 }
 
-const mapStateToProps = state =>{
+export const GetStaticProps = state =>{
   return {
-    noOfList:state.noOfList,
-    list:state.list,
-    shouldBeEdited:state.shouldBeEdited
+    props:{
+      noOfList:state.noOfList,
+      list:state.list,
+      shouldBeEdited:state.shouldBeEdited
+    }
+    
   }
 }
 
@@ -58,6 +70,6 @@ const mapDispatchToProps = dispatch =>{
 }
 
 export default connect(
-  mapStateToProps,
+  GetStaticProps,
   mapDispatchToProps
 )(Form)
